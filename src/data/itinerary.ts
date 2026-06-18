@@ -144,7 +144,7 @@ export const days: Day[] = [
         summary:
           "600+ problems in one sprawling boulderfield, short flat-landing approaches, and a grade spread that keeps the whole group together — easy slabs for the parents to try, plenty of 5s and low 6s for your mates, and the New Cuttings test-pieces for your project.",
         grades:
-          "You: f6A→f7A in New Cuttings · Friends: f5+→f6A · Parents: f3–f4 slabs",
+          "f3 slabs up to f7a boulders",
         rockfax: [
           "Cuttings Boulderfield",
           "New Cuttings",
