@@ -50,6 +50,7 @@ export default {
         fossil: "hsl(var(--fossil))",
         boulder: "hsl(var(--boulder))",
         dws: "hsl(var(--dws))",
+        water: "hsl(var(--water))",
       },
       borderRadius: {
         lg: "var(--radius)",

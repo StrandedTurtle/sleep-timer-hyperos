@@ -1,4 +1,4 @@
-export type ActivityType = "hike" | "fossil" | "boulder" | "dws";
+export type ActivityType = "hike" | "fossil" | "boulder" | "dws" | "water";
 
 export interface RefLink {
   label: string;
@@ -51,7 +51,7 @@ export const days: Day[] = [
     label: "Saturday",
     date: "Sat 20 Jun",
     headline: "Hillfort & Fossils",
-    weather: "Cloudy, dry · high ~21°C / 70°F — a walking-and-beachcombing day",
+    weather: "Cloudy, dry · high ~21°C — a walking-and-beachcombing day",
     activities: [
       {
         id: "eggardon",
@@ -131,13 +131,13 @@ export const days: Day[] = [
     label: "Sunday",
     date: "Sun 21 Jun",
     headline: "Portland: Boulders & a Big Splash",
-    weather: "Sunny · high ~28°C / 83°F — the warmest day, best for getting wet",
+    weather: "Sunny · high ~28°C — the warmest day, best for getting wet",
     activities: [
       {
         id: "cuttings",
         type: "boulder",
         title: "The Cuttings — bouldering",
-        time: "9:30 AM",
+        time: "8:00 AM",
         duration: "~3 hrs",
         location: "East coast of Portland",
         driveFromBase: "~35 min drive",
@@ -171,12 +171,13 @@ export const days: Day[] = [
         id: "cavehole",
         type: "dws",
         title: "Cave Hole — deep water solo",
-        time: "1:30 PM",
+        time: "12:00 PM",
         duration: "~2 hrs",
         location: "Near Portland Bill",
         driveFromBase: "~5 min from the Cuttings",
         summary:
           "One of Dorset's two classic entry-level DWS venues. Plenty of lower-grade lines to ease in on before anyone pushes harder, with the English Channel as your crash pad once the day has warmed up.",
+        optional: true,
         grades: "Start low and build up — ease in before committing to anything high",
         rockfax: [
           "Cave Hole (Portland)",
@@ -204,6 +205,26 @@ export const days: Day[] = [
           },
         ],
       },
+      {
+        id: "lulworth-sup",
+        type: "water",
+        title: "Lulworth Cove — paddleboard",
+        time: "Mid-afternoon",
+        duration: "1–2 hrs",
+        location: "Lulworth Cove",
+        driveFromBase: "~20 min from Portland / Cave Hole",
+        summary:
+          "SUP hire by the hour or day from Lulworth Activities or Jurassic Coast Activities, right on the cove. The classic route is paddling out from the sheltered cove to Durdle Door's arch and back.",
+        optional: true,
+        tips: [
+          "Suits all abilities — the cove itself is sheltered and calm.",
+          "Hire is usually walk-up in summer, no booking needed.",
+          "Check conditions before heading round to Durdle Door — it's more exposed than the cove.",
+          "Want real surf instead? Kimmeridge Bay is the nearest spot — a reef break that only works with a clean swell, so it's worth checking a surf forecast app on the day rather than planning around it.",
+        ],
+        coords: { lat: 50.6211, lng: -2.2493 },
+        links: [{ label: "Open in Maps", url: maps(50.6211, -2.2493) }],
+      },
     ],
   },
 ];
@@ -225,7 +246,7 @@ export const essentials: Essential[] = [
   },
   {
     title: "Weather window",
-    body: "Friday arrival is dry. Saturday is cooler and cloudy — ideal for the hillfort walk and beachcombing. Sunday is the warm, sunny one (~28°C/83°F), which is why the deep water solo sits on Sunday afternoon rather than Saturday.",
+    body: "Friday arrival is dry. Saturday is cooler and cloudy — ideal for the hillfort walk and beachcombing. Sunday is the warm, sunny one (~28°C), which is why the deep water solo sits on Sunday afternoon rather than Saturday.",
   },
   {
     title: "Climbing access & nesting birds",

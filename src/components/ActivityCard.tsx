@@ -3,6 +3,7 @@ import {
   Gem,
   Grip,
   Waves,
+  Sailboat,
   Clock,
   Car,
   MapPin,
@@ -23,6 +24,7 @@ const typeMeta: Record<
   fossil: { label: "Fossils", icon: Gem, color: "text-fossil" },
   boulder: { label: "Bouldering", icon: Grip, color: "text-boulder" },
   dws: { label: "Deep water solo", icon: Waves, color: "text-dws" },
+  water: { label: "Paddleboard / surf", icon: Sailboat, color: "text-water" },
 };
 
 const railColor: Record<ActivityType, string> = {
@@ -30,6 +32,7 @@ const railColor: Record<ActivityType, string> = {
   fossil: "bg-fossil",
   boulder: "bg-boulder",
   dws: "bg-dws",
+  water: "bg-water",
 };
 
 export function ActivityCard({

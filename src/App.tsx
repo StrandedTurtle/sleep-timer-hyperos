@@ -3,6 +3,7 @@ import { days } from "@/data/itinerary";
 import { Hero } from "@/components/Hero";
 import { Essentials } from "@/components/Essentials";
 import { ActivityCard } from "@/components/ActivityCard";
+import { Badge } from "@/components/ui/badge";
 import {
   Tabs,
   TabsContent,
@@ -45,6 +46,30 @@ export default function App() {
                     <CloudSun className="mt-0.5 h-4 w-4 flex-none text-accent" />
                     {day.weather}
                   </p>
+
+                  <div className="mt-4 rounded-md border border-border bg-secondary/40 p-3">
+                    <p className="font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground">
+                      At a glance
+                    </p>
+                    <ul className="mt-2 space-y-1.5">
+                      {day.activities.map((activity) => (
+                        <li
+                          key={activity.id}
+                          className="flex flex-wrap items-center gap-2 text-sm text-foreground/80"
+                        >
+                          <span className="font-mono text-xs text-muted-foreground">
+                            {activity.time}
+                          </span>
+                          <span>{activity.title}</span>
+                          {activity.optional && (
+                            <Badge variant="secondary" className="text-[0.65rem]">
+                              Optional
+                            </Badge>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 <div>
