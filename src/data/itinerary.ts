@@ -274,7 +274,6 @@ export const packing: PackGroup[] = [
       "Rock shoes (a couple of pairs — DWS pairs get soaked)",
       "Several chalk bags",
       "Bouldering pads + brushes",
-      "Short rope & a little gear for setting up an abseil / exit line",
       "Rockfax app downloaded offline (Dorset Bouldering)",
       "Quick-dry shorts, towel and warm layers for after the swim",
     ],
@@ -292,10 +291,9 @@ export const packing: PackGroup[] = [
   {
     group: "Logistics",
     items: [
-      "Cash / JustPark app for beach and crag car parks",
-      "Tide times screenshotted for Sat & Sun",
       "Phone power bank (offline maps drain it)",
       "First aid kit & any group meds",
+      "Hiking Shoes!"
     ],
   },
 ];
