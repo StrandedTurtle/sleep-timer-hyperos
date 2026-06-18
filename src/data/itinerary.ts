@@ -130,7 +130,7 @@ export const days: Day[] = [
     key: "sun",
     label: "Sunday",
     date: "Sun 21 Jun",
-    headline: "Portland: Boulders & a Big Splash",
+    headline: "Portland Boulders, Lulworth Splash",
     weather: "Sunny · high ~28°C — the warmest day, best for getting wet",
     activities: [
       {
@@ -168,40 +168,41 @@ export const days: Day[] = [
         ],
       },
       {
-        id: "cavehole",
+        id: "stairhole",
         type: "dws",
-        title: "Cave Hole — deep water solo",
+        title: "Stair Hole, Lulworth — deep water solo",
         time: "12:00 PM",
         duration: "~2 hrs",
-        location: "Near Portland Bill",
-        driveFromBase: "~5 min from the Cuttings",
+        location: "Stair Hole, Lulworth Cove",
+        driveFromBase: "~25 min from the Cuttings",
         summary:
-          "One of Dorset's two classic entry-level DWS venues. Plenty of lower-grade lines to ease in on before anyone pushes harder, with the English Channel as your crash pad once the day has warmed up.",
+          "Lulworth's classic DWS venue, a 5-minute walk from the main cove car park — overhanging walls dropping straight into deep water, with a grade spread from easy traverses to serious test-pieces. Friends can be paddleboarding in the cove right alongside you.",
         optional: true,
-        grades: "Start low and build up — ease in before committing to anything high",
+        grades:
+          "5 for a first go (Last Seasons Loozas), up through Maypole's well-regarded 6a traverse, to E1/8a test-pieces — start low and build up",
         rockfax: [
-          "Cave Hole (Portland)",
-          "Bare Reputation",
-          "Crab Party",
-          "Tentacle Master",
-          "Octopus Weed",
-          "Swinging Nineties",
+          "Stair Hole (Lulworth)",
+          "Last Seasons Loozas",
+          "Maypole",
+          "Animal Magnetism",
+          "Hornier Than Thou",
+          "Laws Traverse",
         ],
         warning:
-          "Check tide AND swell before anyone jumps — know what's under the surface and how you'll climb back out. Never solo alone: keep someone watching from the side at all times, and the water is cold enough to shock, so plan to warm up fast afterwards.",
+          "Check tide AND swell before anyone jumps — know what's under the surface and how you'll climb back out. Never solo alone: keep someone watching from the side at all times, and the water is cold enough to shock, so plan to warm up fast afterwards. Keep a low profile while you're there — Stair Hole attracts media attention and tombstoners, and a discreet approach helps keep access goodwill intact.",
         tips: [
-          "Quick check of the BMC RAD app first — Portland sea cliffs carry seasonal bird-nesting restrictions (peregrines typically to end of June).",
+          "First time doing this? Start with Last Seasons Loozas (5) or just easy jumps near the entrance before working up to Maypole.",
+          "Quick check of the BMC RAD app first for the latest Lulworth access notes.",
           "Bring a few pairs of rock shoes and several chalk bags — they get wet.",
-          "If the swell's up or it feels committing, Stair Hole at Lulworth (~45 min) is the gentler alternative.",
           "Sunday's heat makes this the right day for it — Saturday would be a cold drop.",
         ],
-        coords: { lat: 50.5153573, lng: -2.4532577 },
+        coords: { lat: 50.6181, lng: -2.2525 },
         links: [
-          { label: "Open in Maps", url: maps(50.5153573, -2.4532577) },
-          { label: "BMC Regional Access Database", url: "https://www.thebmc.co.uk/bmc-regional-access-database-rad" },
+          { label: "Open in Maps", url: maps(50.6181, -2.2525) },
+          { label: "BMC Regional Access Database", url: "https://services.thebmc.co.uk/modules/rad/view.aspx?id=161" },
           {
-            label: "Portland tide times",
-            url: "https://www.tidetimes.org.uk/portland-tide-times",
+            label: "Lulworth tide times",
+            url: "https://www.tidetimes.org.uk/lulworth-cove-tide-times",
           },
         ],
       },
@@ -209,12 +210,12 @@ export const days: Day[] = [
         id: "lulworth-sup",
         type: "water",
         title: "Lulworth Cove — paddleboard",
-        time: "Mid-afternoon",
+        time: "12:00 PM",
         duration: "1–2 hrs",
         location: "Lulworth Cove",
-        driveFromBase: "~20 min from Portland / Cave Hole",
+        driveFromBase: "~25 min from the Cuttings",
         summary:
-          "SUP hire by the hour or day from Lulworth Activities or Jurassic Coast Activities, right on the cove. The classic route is paddling out from the sheltered cove to Durdle Door's arch and back.",
+          "SUP hire by the hour or day from Lulworth Activities or Jurassic Coast Activities, right on the cove. Stair Hole is a 5-minute walk away, so you can watch (or cheer on) the deep water solo while you paddle. The classic SUP route is paddling out from the sheltered cove to Durdle Door's arch and back.",
         optional: true,
         tips: [
           "Suits all abilities — the cove itself is sheltered and calm.",
@@ -238,10 +239,11 @@ export interface Essential {
 export const essentials: Essential[] = [
   {
     title: "Tides — check the day before",
-    body: "Everything coastal hangs on the tide. For Charmouth you want a low or falling tide so you can search safely and not get cut off near the cliffs. For Cave Hole, the tide and swell decide whether the deep water solo is on at all and how deep the landing is.",
+    body: "Everything coastal hangs on the tide. For Charmouth you want a low or falling tide so you can search safely and not get cut off near the cliffs. For Stair Hole, the tide and swell decide whether the deep water solo is on at all and how deep the landing is.",
     links: [
       { label: "Lyme Regis / Charmouth tides", url: "https://www.dorset-tides.com/lyme-regis-tide-times" },
       { label: "Portland tides", url: "https://www.tidetimes.org.uk/portland-tide-times" },
+      { label: "Lulworth Cove tides", url: "https://www.tidetimes.org.uk/lulworth-cove-tide-times" },
     ],
   },
   {
@@ -249,11 +251,10 @@ export const essentials: Essential[] = [
     body: "Friday arrival is dry. Saturday is cooler and cloudy — ideal for the hillfort walk and beachcombing. Sunday is the warm, sunny one (~28°C), which is why the deep water solo sits on Sunday afternoon rather than Saturday.",
   },
   {
-    title: "Climbing access & nesting birds",
-    body: "Portland's sea cliffs get seasonal climbing restrictions to protect nesting birds (peregrines usually until the end of June). Guidebooks can be out of date, so check the BMC's live access database before you head to Cave Hole, and back off and report it if you spot an alarm-calling bird on an unrestricted line.",
+    title: "Climbing access at Stair Hole",
+    body: "Stair Hole sits on Open Access land (CRoW), so climbing and DWS there is legally permitted. It does periodically draw media attention and tombstoning by non-climbers though, so keep a low profile while you're there — it helps keep access goodwill intact. Check the BMC's live access database before you head over for any current notices.",
     links: [
-      { label: "BMC Regional Access Database (RAD)", url: "https://www.thebmc.co.uk/bmc-regional-access-database-rad" },
-      { label: "Bird restrictions explained", url: "https://thebmc.co.uk/en/bird-restrictions" },
+      { label: "BMC Regional Access Database (RAD)", url: "https://services.thebmc.co.uk/modules/rad/view.aspx?id=161" },
     ],
   },
   {
