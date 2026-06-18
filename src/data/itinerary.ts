@@ -179,10 +179,9 @@ export const days: Day[] = [
           "Lulworth's classic DWS venue, a 5-minute walk from the main cove car park — overhanging walls dropping straight into deep water, with a grade spread from easy traverses to serious test-pieces. Friends can be paddleboarding in the cove right alongside you.",
         optional: true,
         grades:
-          "5 for a first go (Last Seasons Loozas), up through Maypole's well-regarded 6a traverse, to E1/8a test-pieces — start low and build up",
+          "Maypole's 6a traverse is the standard first-timer's line, up to E1/8a test-pieces for the strong — start low and build up",
         rockfax: [
           "Stair Hole (Lulworth)",
-          "Last Seasons Loozas",
           "Maypole",
           "Animal Magnetism",
           "Hornier Than Thou",
@@ -191,7 +190,7 @@ export const days: Day[] = [
         warning:
           "Check tide AND swell before anyone jumps — know what's under the surface and how you'll climb back out. Never solo alone: keep someone watching from the side at all times, and the water is cold enough to shock, so plan to warm up fast afterwards. Keep a low profile while you're there — Stair Hole attracts media attention and tombstoners, and a discreet approach helps keep access goodwill intact.",
         tips: [
-          "First time doing this? Start with Last Seasons Loozas (5) or just easy jumps near the entrance before working up to Maypole.",
+          "First time doing this? Maypole (6a, S0 — no swimming seriousness) is the established beginner line, and it finishes back at the beach — no rope or abseil gear needed for it.",
           "Quick check of the BMC RAD app first for the latest Lulworth access notes.",
           "Bring a few pairs of rock shoes and several chalk bags — they get wet.",
           "Sunday's heat makes this the right day for it — Saturday would be a cold drop.",
