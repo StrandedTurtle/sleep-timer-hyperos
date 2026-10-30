@@ -23,7 +23,7 @@ layout switches to two panes.
 Every push to the default branch builds a signed APK and publishes it as a GitHub Release
 (`v1.0.<build>`). In Obtainium:
 
-1. **Add app** → `https://github.com/strandedturtle/jurassic-weekend`
+1. **Add app** → `https://github.com/StrandedTurtle/sleep-timer-hyperos`
 2. For a private repo, put your GitHub token in Obtainium's GitHub source settings.
 3. Install. Later releases update in place because every build is signed with the same key.
 
