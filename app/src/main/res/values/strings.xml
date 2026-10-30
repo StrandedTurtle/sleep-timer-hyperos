@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hush</string>
+    <string name="tile_label">Sleep timer</string>
+    <string name="listener_label">Hush media control</string>
+    <string name="channel_name">Sleep timer</string>
+    <string name="channel_desc">Shows the running sleep timer in the Super Island</string>
+</resources>
