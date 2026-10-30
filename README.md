@@ -1,110 +1,63 @@
-# Jurassic Weekend — Chilfrome Field Plan
+# Hush: a sleep timer for the HyperOS Super Island
 
-A mobile-friendly itinerary web app for a long weekend on the Dorset coast:
-an Iron Age hillfort walk, fossil hunting at Charmouth, and a day of bouldering
-and deep water soloing on Portland.
+Hush stops **all audio and video playback** when a timer runs out, and you control it from the
+Xiaomi HyperOS **Super Island** (the dynamic island). It's built for HyperOS phones and tablets and
+styled to match the frosted-glass look of HyperOS 3/4.
 
-Built with **Vite + React + TypeScript + Tailwind CSS + shadcn/ui**.
+## How it works
 
----
+1. **Quick tile.** Add the *Sleep timer* tile (open the app and tap **Add** under Setup, or edit your
+   Control Center). Tap it to start a **30-minute** timer. Tap it again to cancel. Long-press it to
+   open the app.
+2. **Super Island.** While the timer runs, the island shows a moon and a live countdown. Expand it to
+   get **−5 min**, **+5 min** and **Stop**.
+3. **When time's up,** Hush fades the media volume over about 6 seconds, pauses every active media
+   session (Spotify, YouTube, Netflix, podcasts, browsers…), then restores your volume.
 
-## Run it locally
+The app itself has a glass dial with presets (15/30/45/60/90), a setup checklist, and preferences:
+the tile's default duration, fade on/off, and island style. On tablets and unfolded screens the
+layout switches to two panes.
 
-You need [Node.js](https://nodejs.org/) 18+ installed.
+## Install with Obtainium / ObtainX
 
-```bash
-npm install
-npm run dev
-```
+Every push to the default branch builds a signed APK and publishes it as a GitHub Release
+(`v1.0.<build>`). In Obtainium:
 
-Open the URL it prints (usually http://localhost:5173).
+1. **Add app** → `https://github.com/StrandedTurtle/sleep-timer-hyperos`
+2. For a private repo, put your GitHub token in Obtainium's GitHub source settings.
+3. Install. Later releases update in place because every build is signed with the same key.
 
-To build the production version locally:
+You can also start a release by hand: **Actions → Build & release APK → Run workflow**. This works
+on any branch.
 
-```bash
-npm run build
-npm run preview
-```
+## First-run setup (on the phone)
 
----
+| Item | Why |
+| --- | --- |
+| Notifications | Required for the island and its buttons |
+| Super Island / focus notifications | HyperOS decides which apps can draw in the island. If the status says *Turn on…*, tap **Open** and enable the island / focus notification toggle for Hush. If HyperOS won't allow it, Hush falls back to an Android 16 **Live Update**, which HyperOS 3+ also shows in the island |
+| Pause any app | Notification-listener access lets Hush pause *every* media session, not just the one that owns the media keys |
+| Autostart | HyperOS can block alarms for apps without Autostart. Turn it on |
 
-## Put it on GitHub
+If Android blocks the media-control toggle as a *restricted setting*, open
+**Settings → Apps → Hush → ⋮ → Allow restricted settings** and try again.
 
-```bash
-git init
-git add .
-git commit -m "Jurassic weekend itinerary app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/jurassic-weekend.git
-git push -u origin main
-```
+## Signing
 
-(Create the empty repo on github.com first, then use its URL above.)
+`keystore/hush.jks` is committed so CI can sign every build with the same key; that's what lets
+Obtainium update in place. To use your own key instead, add these repository secrets:
+`HUSH_KEYSTORE_BASE64`, `HUSH_KEYSTORE_PASSWORD`, `HUSH_KEY_ALIAS` and `HUSH_KEY_PASSWORD`.
+Changing keys means uninstalling once.
 
----
-
-## Deploy to Vercel
-
-1. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
-2. Click **Add New → Project** and import the `jurassic-weekend` repo.
-3. Vercel auto-detects Vite. Leave the defaults:
-   - **Framework Preset:** Vite
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-4. Click **Deploy**. You'll get a shareable `*.vercel.app` link in about a minute.
-
-Every push to `main` redeploys automatically.
-
----
-
-## Editing the content
-
-All the itinerary text lives in one file:
+## Project layout
 
 ```
-src/data/itinerary.ts
+app/src/main/java/com/strandedturtle/hush/
+  timer/   TimerStore (state), SleepTimer (start/adjust/stop + exact alarm), receivers
+  island/  TimerNotification (miui.focus.param Super Island payload + Live Update fallback), FocusSupport
+  media/   MediaStopper (fade, pause all sessions, focus, media key), listener service
+  tile/    SleepTileService
+  ui/      Compose glass UI (Theme, Glass, Dial, HushScreen, Setup)
 ```
 
-- `days` — the Saturday/Sunday activities (times, tips, grades, Rockfax names, links).
-- `essentials` — the "Before you go" notes (tides, weather, access, safety).
-- `packing` — the kit list.
-
-Change the text there and the page updates. No other files need touching for
-content edits.
-
-### Add more shadcn/ui components
-
-This project is wired for the shadcn CLI (`components.json` is set up):
-
-```bash
-npx shadcn@latest add dialog
-```
-
-New components land in `src/components/ui`.
-
----
-
-## Project structure
-
-```
-src/
-├── App.tsx                 # page composition (hero, day tabs, essentials)
-├── main.tsx                # entry point
-├── index.css               # Tailwind + the Jurassic field-guide palette
-├── data/itinerary.ts       # ← all the content lives here
-├── lib/utils.ts            # cn() helper
-└── components/
-    ├── Hero.tsx
-    ├── Essentials.tsx
-    ├── ActivityCard.tsx    # the strata-rail timeline card
-    └── ui/                 # shadcn components (button, card, badge, tabs, accordion)
-```
-
----
-
-## A note on safety
-
-Tides, swell, weather and climbing access change constantly. Always reconfirm
-tide times, sea conditions and bird-nesting restrictions (via the
-[BMC RAD](https://www.thebmc.co.uk/bmc-regional-access-database-rad)) on the day
-before relying on any of the coastal plans, and stay clear of unstable cliffs.
+Build locally with `./gradlew assembleRelease` (JDK 17+ and the Android SDK).
