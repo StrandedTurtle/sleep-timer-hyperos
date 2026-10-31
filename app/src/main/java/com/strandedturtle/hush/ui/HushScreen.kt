@@ -149,8 +149,6 @@ fun HushScreen() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Header()
-                        Spacer(Modifier.height(16.dp))
                         Box(Modifier.widthIn(max = 460.dp)) { dial() }
                     }
                     Spacer(Modifier.size(32.dp))
@@ -164,8 +162,6 @@ fun HushScreen() {
                     Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Header()
-                    Spacer(Modifier.height(8.dp))
                     Box(Modifier.widthIn(max = 420.dp)) { dial() }
                     Spacer(Modifier.height(24.dp))
                     panels()
@@ -173,15 +169,6 @@ fun HushScreen() {
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun Header() {
-    val glass = LocalGlass.current
-    Column(Modifier.fillMaxWidth().padding(top = 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Hush", color = glass.text, fontSize = 34.sp, fontWeight = FontWeight.SemiBold)
-        Text("Sleep timer for everything that plays", color = glass.textMuted, fontSize = 14.sp)
     }
 }
 
