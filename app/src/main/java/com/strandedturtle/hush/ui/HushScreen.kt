@@ -49,7 +49,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.strandedturtle.hush.R
-import com.strandedturtle.hush.timer.IslandMode
 import com.strandedturtle.hush.timer.SleepTimer
 import com.strandedturtle.hush.timer.TimerStore
 import kotlinx.coroutines.delay
@@ -80,6 +79,9 @@ fun HushScreen() {
     LifecycleResumeEffect(Unit) {
         setup = SetupStatus.read(context)
         onPauseOrDispose { }
+    }
+    LaunchedEffect(setup) {
+        if (setup.isComplete) TimerStore.markSetupDone(context)
     }
     val notifLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         setup = SetupStatus.read(context)
@@ -124,18 +126,18 @@ fun HushScreen() {
         )
     }
     val panels: @Composable () -> Unit = {
-        SetupPanel(setup, onNotifications = {
-            ensureNotifications()
-            SetupActions.openNotificationSettings(context)
-        })
-        Spacer(Modifier.height(16.dp))
+        if (!settings.setupDone) {
+            SetupPanel(setup, onNotifications = {
+                ensureNotifications()
+                SetupActions.openNotificationSettings(context)
+            })
+            Spacer(Modifier.height(16.dp))
+        }
         SettingsPanel(
             defaultMinutes = settings.defaultMinutes,
             fadeOut = settings.fadeOut,
-            islandMode = settings.islandMode,
             onDefault = { TimerStore.setDefaultMinutes(context, it) },
             onFade = { TimerStore.setFadeOut(context, it) },
-            onIslandMode = { TimerStore.setIslandMode(context, it) },
         )
     }
 
@@ -280,10 +282,8 @@ private fun SetupPanel(setup: SetupStatus, onNotifications: () -> Unit) {
 private fun SettingsPanel(
     defaultMinutes: Int,
     fadeOut: Boolean,
-    islandMode: IslandMode,
     onDefault: (Int) -> Unit,
     onFade: (Boolean) -> Unit,
-    onIslandMode: (IslandMode) -> Unit,
 ) {
     val glass = LocalGlass.current
     GlassPanel(Modifier.fillMaxWidth()) {
@@ -320,17 +320,6 @@ private fun SettingsPanel(
                     uncheckedThumbColor = glass.textMuted,
                 ),
             )
-        }
-        RowDivider()
-        Text("Island style", color = glass.text, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-        Text("Auto uses Xiaomi Super Island when HyperOS allows it", color = glass.textMuted, fontSize = 13.sp)
-        Spacer(Modifier.height(10.dp))
-        Row(Modifier.horizontalScroll(rememberScrollState())) {
-            ChipRow {
-                GlassChip("Auto", islandMode == IslandMode.AUTO, { onIslandMode(IslandMode.AUTO) })
-                GlassChip("Super Island", islandMode == IslandMode.XIAOMI_FOCUS, { onIslandMode(IslandMode.XIAOMI_FOCUS) })
-                GlassChip("Live Update", islandMode == IslandMode.LIVE_UPDATE, { onIslandMode(IslandMode.LIVE_UPDATE) })
-            }
         }
     }
 }

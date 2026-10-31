@@ -9,13 +9,15 @@ styled to match the frosted-glass look of HyperOS 3/4.
 1. **Quick tile.** Add the *Sleep timer* tile (open the app and tap **Add** under Setup, or edit your
    Control Center). Tap it to start a **30-minute** timer. Tap it again to cancel. Long-press it to
    open the app.
-2. **Super Island.** While the timer runs, the island shows a moon and a live countdown. Expand it to
-   get **−5 min**, **+5 min** and **Stop**.
+2. **Super Island.** While the timer runs, the island shows a moon and a live countdown. Expand it
+   for **Stop** (HyperOS shows a single button there). **−5 / +5 min** are in the app and in the
+   notification shade.
 3. **When time's up,** Hush fades the media volume over about 6 seconds, pauses every active media
    session (Spotify, YouTube, Netflix, podcasts, browsers…), then restores your volume.
 
 The app itself has a glass dial with presets (15/30/45/60/90), a setup checklist, and preferences:
-the tile's default duration, fade on/off, and island style. On tablets and unfolded screens the
+the tile's default duration and fade on/off. The setup checklist hides itself once every step is
+done. Super Island vs. Android Live Update is picked automatically. On tablets and unfolded screens the
 layout switches to two panes.
 
 ## Install with Obtainium / ObtainX

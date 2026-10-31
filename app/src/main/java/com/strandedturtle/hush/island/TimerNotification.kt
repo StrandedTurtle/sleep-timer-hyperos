@@ -13,7 +13,6 @@ import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.strandedturtle.hush.R
-import com.strandedturtle.hush.timer.IslandMode
 import com.strandedturtle.hush.timer.TimerReceiver
 import com.strandedturtle.hush.timer.TimerState
 import com.strandedturtle.hush.timer.TimerStore
@@ -33,8 +32,7 @@ object TimerNotification {
     private const val NOTIFICATION_ID = 30
 
     private const val PIC_MOON = "miui.focus.pic_moon"
-    private const val ACT_MINUS = "miui.focus.action_minus"
-    private const val ACT_PLUS = "miui.focus.action_plus"
+    private const val ACT_STOP = "miui.focus.action_stop"
 
     fun createChannel(context: Context) {
         val channel = NotificationChannel(
@@ -61,11 +59,7 @@ object TimerNotification {
 
         val settings = TimerStore.settings(context)
         val step = settings.stepMinutes
-        val useFocus = when (settings.islandMode) {
-            IslandMode.XIAOMI_FOCUS -> true
-            IslandMode.LIVE_UPDATE -> false
-            IslandMode.AUTO -> FocusSupport.protocolVersion(context) > 0 && FocusSupport.canShowFocus(context)
-        }
+        val useFocus = FocusSupport.protocolVersion(context) > 0 && FocusSupport.canShowFocus(context)
 
         val endText = DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(state.endAt))
         val minus = TimerReceiver.pendingIntent(context, TimerReceiver.ACTION_MINUS)
@@ -97,7 +91,7 @@ object TimerNotification {
             .addAction(R.drawable.ic_stop, "Stop", stop)
 
         if (useFocus) {
-            builder.addExtras(focusResources(context, minus, plus))
+            builder.addExtras(focusResources(context, stop))
         } else {
             // Android 16 Live Update: shows as a status bar chip / island on supporting skins.
             builder.setRequestPromotedOngoing(true)
@@ -116,8 +110,7 @@ object TimerNotification {
     /** `miui.focus.pics` and `miui.focus.actions` bundles referenced by key from the JSON. */
     private fun focusResources(
         context: Context,
-        minus: PendingIntent,
-        plus: PendingIntent,
+        stop: PendingIntent,
     ): Bundle {
         val pics = Bundle().apply {
             putParcelable(PIC_MOON, Icon.createWithResource(context, R.drawable.ic_island_moon))
@@ -125,8 +118,7 @@ object TimerNotification {
         fun action(icon: Int, title: String, pi: PendingIntent) =
             Notification.Action.Builder(Icon.createWithResource(context, icon), title, pi).build()
         val actions = Bundle().apply {
-            putParcelable(ACT_MINUS, action(R.drawable.ic_minus, "−", minus))
-            putParcelable(ACT_PLUS, action(R.drawable.ic_plus, "+", plus))
+            putParcelable(ACT_STOP, action(R.drawable.ic_stop, "Stop", stop))
         }
         return Bundle().apply {
             putBundle("miui.focus.pics", pics)
@@ -183,15 +175,8 @@ object TimerNotification {
             .put("picProfile", PIC_MOON)
             .put("timerInfo", timerInfo(state, now))
 
-        val actions = JSONArray()
-            .put(textAction(ACT_MINUS, "−$step min", "#2E8FA8FF", "#FFFFFFFF"))
-            .put(textAction(ACT_PLUS, "+$step min", "#2E8FA8FF", "#FFFFFFFF"))
-        // HyperOS only renders a couple of buttons on the expanded island, so it gets just −/+.
-        // Stop lives on the tile, in the app and in the regular notification actions.
-        val chatActions = JSONArray()
-            .put(JSONObject().put("type", 2).put("actionIntent", ACT_MINUS).put("actionIntentType", 2).put("actionTitle", "−$step min"))
-            .put(JSONObject().put("type", 2).put("actionIntent", ACT_PLUS).put("actionIntentType", 2).put("actionTitle", "+$step min"))
-        chat.put("actions", chatActions)
+        // The expanded island renders a single button.
+        val actions = JSONArray().put(textAction(ACT_STOP, "Stop", "#FF5B6CFF", "#FFFFFFFF"))
 
         val v2 = JSONObject()
             .put("protocol", if (protocol > 0) protocol else 3)

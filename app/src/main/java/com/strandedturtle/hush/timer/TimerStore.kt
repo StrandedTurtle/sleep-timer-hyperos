@@ -12,13 +12,11 @@ data class TimerState(val endAt: Long = 0L, val totalMs: Long = 0L) {
     fun remainingMs(now: Long = System.currentTimeMillis()): Long = (endAt - now).coerceAtLeast(0L)
 }
 
-enum class IslandMode { AUTO, XIAOMI_FOCUS, LIVE_UPDATE }
-
 data class Settings(
     val defaultMinutes: Int = 30,
     val stepMinutes: Int = 5,
     val fadeOut: Boolean = true,
-    val islandMode: IslandMode = IslandMode.AUTO,
+    val setupDone: Boolean = false,
 )
 
 /** SharedPreferences-backed state shared by the tile, receivers, notification and UI. */
@@ -29,7 +27,7 @@ object TimerStore {
     private const val KEY_DEFAULT = "default_minutes"
     private const val KEY_STEP = "step_minutes"
     private const val KEY_FADE = "fade_out"
-    private const val KEY_ISLAND = "island_mode"
+    private const val KEY_SETUP_DONE = "setup_done"
 
     private val _state = MutableStateFlow(TimerState())
     val state: StateFlow<TimerState> = _state.asStateFlow()
@@ -57,8 +55,7 @@ object TimerStore {
             defaultMinutes = p.getInt(KEY_DEFAULT, 30),
             stepMinutes = p.getInt(KEY_STEP, 5),
             fadeOut = p.getBoolean(KEY_FADE, true),
-            islandMode = runCatching { IslandMode.valueOf(p.getString(KEY_ISLAND, null)!!) }
-                .getOrDefault(IslandMode.AUTO),
+            setupDone = p.getBoolean(KEY_SETUP_DONE, false),
         )
     }
 
@@ -89,6 +86,7 @@ object TimerStore {
     fun setFadeOut(context: Context, enabled: Boolean) =
         prefs(context).edit().putBoolean(KEY_FADE, enabled).apply()
 
-    fun setIslandMode(context: Context, mode: IslandMode) =
-        prefs(context).edit().putString(KEY_ISLAND, mode.name).apply()
+    /** Once every setup step has been completed the checklist stays hidden for good. */
+    fun markSetupDone(context: Context) =
+        prefs(context).edit().putBoolean(KEY_SETUP_DONE, true).apply()
 }

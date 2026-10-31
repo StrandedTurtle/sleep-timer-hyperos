@@ -27,6 +27,10 @@ data class SetupStatus(
     val exactAlarms: Boolean,
     val isXiaomi: Boolean,
 ) {
+    /** Everything we can actually detect is done (island may legitimately be unsupported). */
+    val isComplete: Boolean
+        get() = notifications && mediaAccess && exactAlarms && island != IslandStatus.NEEDS_PERMISSION
+
     companion object {
         fun read(context: Context): SetupStatus {
             val protocol = FocusSupport.protocolVersion(context)
